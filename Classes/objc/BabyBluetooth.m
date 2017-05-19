@@ -363,8 +363,9 @@
                 babyCentralManager->needReadValueForDescriptors = YES;
             }
             //调整委托方法的channel，如果没设置默认为缺省频道
-            NSString *channel = [babyCentralManager->pocket valueForKey:@"channel"];
-            [babySpeaker switchChannel:channel];
+            //Remove:每次begin的时候不切换频道
+//            NSString *channel = [babyCentralManager->pocket valueForKey:@"channel"];
+//            [babySpeaker switchChannel:channel];
             //缓存的peripheral
             CBPeripheral *cachedPeripheral = [babyCentralManager->pocket valueForKey:NSStringFromClass([CBPeripheral class])];
             //校验series合法性
@@ -461,6 +462,8 @@
     return ^BabyBluetooth *(NSString *channel) {
         //先缓存数据，到begin方法统一处理
         [babyCentralManager->pocket setValue:channel forKey:@"channel"];
+        //Add:直接切换频道，不用等到begin()
+        [babySpeaker switchChannel:channel];
         return self;
     };
 }
@@ -613,7 +616,11 @@ characteristic:(CBCharacteristic *)characteristic
     CBPeripheral *p = nil;
     @try {
         NSUUID *uuid = [[NSUUID alloc]initWithUUIDString:UUIDString];
-        p = [self.centralManager retrievePeripheralsWithIdentifiers:@[uuid]][0];
+        // Fixed:不判断长度的话找不到uuid会返回空数组
+        NSArray<CBPeripheral *> *peripherals = [self.centralManager retrievePeripheralsWithIdentifiers:@[uuid]];
+        if (peripherals && peripherals.count>0) {
+            p = peripherals[0];
+        }
     } @catch (NSException *exception) {
         BabyLog(@">>> retrievePeripheralWithUUIDString error:%@",exception)
     } @finally {
