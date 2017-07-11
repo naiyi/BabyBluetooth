@@ -127,7 +127,7 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
-    
+    [[NSNotificationCenter defaultCenter]postNotificationName:BabyNotificationAtCentralManagerWillRestoreState object:@{@"central":central,@"restoreState":dict}];
 }
 
 //扫描到Peripherals
