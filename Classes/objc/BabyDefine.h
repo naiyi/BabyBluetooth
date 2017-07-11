@@ -60,7 +60,7 @@
 //蓝牙扩展通知
 // did centralManager enable notification
 #define BabyNotificationAtCentralManagerEnable @"BabyNotificationAtCentralManagerEnable"
-
+#define BabyNotificationAtCentralManagerWillRestoreState @"BabyNotificationAtCentralManagerWillRestoreState"
 
 
 # pragma mark - baby 定义的方法
