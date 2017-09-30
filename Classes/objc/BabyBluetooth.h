@@ -340,42 +340,42 @@ scanForPeripheralsWithServices:(NSArray *)scanForPeripheralsWithServices
 /**
 查找Peripherals
  */
-- (BabyBluetooth *(^)()) scanForPeripherals;
+- (BabyBluetooth *(^)(void)) scanForPeripherals;
 
 /**
 连接Peripherals
  */
-- (BabyBluetooth *(^)()) connectToPeripherals;
+- (BabyBluetooth *(^)(void)) connectToPeripherals;
 
 /**
 发现Services
  */
-- (BabyBluetooth *(^)()) discoverServices;
+- (BabyBluetooth *(^)(void)) discoverServices;
 
 /**
 获取Characteristics
  */
-- (BabyBluetooth *(^)()) discoverCharacteristics;
+- (BabyBluetooth *(^)(void)) discoverCharacteristics;
 
 /**
 更新Characteristics的值
  */
-- (BabyBluetooth *(^)()) readValueForCharacteristic;
+- (BabyBluetooth *(^)(void)) readValueForCharacteristic;
 
 /**
 获取Characteristics的名称
  */
-- (BabyBluetooth *(^)()) discoverDescriptorsForCharacteristic;
+- (BabyBluetooth *(^)(void)) discoverDescriptorsForCharacteristic;
 
 /**
 获取Descriptors的值
  */
-- (BabyBluetooth *(^)()) readValueForDescriptors;
+- (BabyBluetooth *(^)(void)) readValueForDescriptors;
 
 /**
 开始执行
  */
-- (BabyBluetooth *(^)()) begin;
+- (BabyBluetooth *(^)(void)) begin;
 
 /**
 sec秒后停止
@@ -430,7 +430,7 @@ sec秒后停止
  
  */
 
-- (BabyBluetooth *(^)()) enjoy;
+- (BabyBluetooth *(^)(void)) enjoy;
 
 #pragma mark - 工具方法
 
