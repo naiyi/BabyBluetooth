@@ -510,7 +510,7 @@ characteristic:(CBCharacteristic *)characteristic
 #pragma mark - peripheral model
 
 //进入外设模式
-- (BabyPeripheralManager *(^)()) bePeripheral;
+- (BabyPeripheralManager *(^)(void)) bePeripheral;
 - (BabyPeripheralManager *(^)(NSString *localName)) bePeripheralWithName;
 
 @property (nonatomic, readonly) CBPeripheralManager *peripheralManager;
