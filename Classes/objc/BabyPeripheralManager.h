@@ -37,17 +37,17 @@
 /**
  移除广播包数据
  */
-- (BabyPeripheralManager *(^)())removeAllServices;
+- (BabyPeripheralManager *(^)(void))removeAllServices;
 
 /**
 启动广播
  */
-- (BabyPeripheralManager *(^)())startAdvertising;
+- (BabyPeripheralManager *(^)(void))startAdvertising;
 
 /**
  停止广播
  */
-- (BabyPeripheralManager *(^)())stopAdvertising;
+- (BabyPeripheralManager *(^)(void))stopAdvertising;
 
 //外设管理器
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
@@ -90,4 +90,4 @@ CBMutableService* makeCBService(NSString *UUID);
 /**
  生成UUID
  */
-NSString* genUUID();
+NSString* genUUID(void);
