@@ -167,12 +167,12 @@
 //连接到Peripherals-成功
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     
+    //设置委托
+    [peripheral setDelegate:self];
+ 
     //发出通知
     [[NSNotificationCenter defaultCenter]postNotificationName:BabyNotificationAtDidConnectPeripheral
                                                        object:@{@"central":central,@"peripheral":peripheral}];
-    
-    //设置委托
-    [peripheral setDelegate:self];
     
     //BabyLog(@">>>连接到名称为（%@）的设备-成功",peripheral.name);
     [connectTimer invalidate];//停止时钟
