@@ -440,6 +440,8 @@ sec秒后停止
  */
 + (instancetype)shareBabyBluetooth;
 
+// 设置BLE是否运行在子线程，true:子线程，false:主线程
++ (void) setBleInThread:(BOOL) inThread;
 
 /**
 断开连接
