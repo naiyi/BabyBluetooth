@@ -10,7 +10,7 @@
 
 #import "BabyBluetooth.h"
 
-
+static BOOL bleInThread;
 
 @implementation BabyBluetooth{
     BabyCentralManager *babyCentralManager;
@@ -18,6 +18,7 @@
     BabySpeaker *babySpeaker;
     int CENTRAL_MANAGER_INIT_WAIT_TIMES;
     NSTimer *timerForStop;
+    dispatch_queue_t bleQueue;
 }
 //单例模式
 + (instancetype)shareBabyBluetooth {
@@ -29,11 +30,19 @@
    return share;
 }
 
++ (void) setBleInThread:(BOOL) inThread {
+    bleInThread = inThread;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
         //初始化对象
-        babyCentralManager = [[BabyCentralManager alloc]init];
+        if (bleInThread) {
+            bleQueue = dispatch_queue_create("com.zhengxin.ble.queue", DISPATCH_QUEUE_SERIAL);
+        }
+
+        babyCentralManager = [[BabyCentralManager alloc]initWithQueue:bleQueue];
         babySpeaker = [[BabySpeaker alloc]init];
         babyCentralManager->babySpeaker = babySpeaker;
         
