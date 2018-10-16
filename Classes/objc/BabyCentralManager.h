@@ -55,7 +55,7 @@
     NSMutableArray *reConnectPeripherals;
 }
 
-
+- (instancetype)initWithQueue:(dispatch_queue_t) queue;
 
 
 //扫描Peripherals
