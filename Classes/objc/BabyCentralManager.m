@@ -17,7 +17,7 @@
 
 #define currChannel [babySpeaker callbackOnCurrChannel]
 
-- (instancetype)init {
+- (instancetype)initWithQueue:(dispatch_queue_t) queue {
     self = [super init];
     if (self) {
         
@@ -27,7 +27,11 @@
                                  //蓝牙power没打开时alert提示框
                                  [NSNumber numberWithBool:YES],CBCentralManagerOptionShowPowerAlertKey,
                                  //重设centralManager恢复的IdentifierKey
+#ifndef DEBUG
+                                 // DEBUG模式下不启动restore，也就不会在后台断开连接后再恢复，之所以这么设置是因为Xcode的Bug，每次停止调试运行以后，restore设置会重连蓝牙并唤醒App重启。
+                                 // 而此后如果重新在Xcode中通过run运行App，则app并非从非运行态冷启动，而且调试器无法连接到App进程，导致没有控制台打印信息输出。
                                  @"babyBluetoothRestore",CBCentralManagerOptionRestoreIdentifierKey,
+#endif
                                  nil];
         
 #else
@@ -37,11 +41,11 @@
         NSArray *backgroundModes = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"UIBackgroundModes"];
         if ([backgroundModes containsObject:@"bluetooth-central"]) {
             //后台模式
-            centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil options:options];
+            centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:queue options:options];
         }
         else {
             //非后台模式
-            centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+            centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:queue];
         }
         
         //pocket
