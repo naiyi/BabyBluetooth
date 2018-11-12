@@ -39,10 +39,11 @@ static BOOL bleInThread;
     if (self) {
         //初始化对象
         if (bleInThread) {
-            bleQueue = dispatch_queue_create("com.zhengxin.ble.queue", DISPATCH_QUEUE_SERIAL);
+            _bleQueue = dispatch_queue_create("com.zhengxin.ble.queue", DISPATCH_QUEUE_SERIAL);
+            dispatch_set_target_queue(_bleQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
         }
 
-        babyCentralManager = [[BabyCentralManager alloc]initWithQueue:bleQueue];
+        babyCentralManager = [[BabyCentralManager alloc]initWithQueue:_bleQueue];
         babySpeaker = [[BabySpeaker alloc]init];
         babyCentralManager->babySpeaker = babySpeaker;
         
