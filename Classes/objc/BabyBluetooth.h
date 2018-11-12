@@ -22,6 +22,8 @@
 
 
 @interface BabyBluetooth : NSObject
+ 
+@property (nonatomic,strong) dispatch_queue_t bleQueue;
 
 #pragma mark - babybluetooth的委托
 
